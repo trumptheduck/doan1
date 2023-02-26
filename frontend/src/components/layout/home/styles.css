@@ -1,0 +1,82 @@
+.header_main {
+    position: absolute;
+    /* height: 100vh; */
+    background-color: #ccc;
+    width: 100%;
+}
+
+.header_main li{
+    list-style-type: none;
+    display: inline-block;
+}
+
+.header_container {
+    background-color: #001529;
+    height: 60px;
+    display: flex;
+}
+
+.header_logo img {
+    width: 140px;
+    padding: 14px 0;
+    margin-left: 64px;
+}
+
+.header_navbar {
+    padding: 17px 0;
+    margin-left: 32px;
+    color: #fff;
+    flex-grow: 2;
+}
+
+.nav ul li {
+    margin-left: 32px;
+    cursor: pointer;
+}
+
+.header_avt {
+    height: 40px;
+    width: 40px;
+    background-color: #FFF;
+    margin: 10px 12px 10px 64px;
+    border-radius: 20px;
+}
+
+.header_avt-navbar {
+    list-style-type: none;
+    background-color: #fff;
+    width: 96px;
+    float: right;
+    visibility: hidden ;
+    color: #FFF;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.header_avt-navbar .open {
+    visibility: visible;
+}
+
+.header_avt-navbar .close {
+    visibility: hidden;
+}
+
+.log-out{
+    color: #FFF;
+    margin: 16px;
+    cursor: pointer;
+}
+
+.header_login, .header_signup{
+    background-color: #1c58a1;
+    width: 96px;
+    margin: 12px;
+    border-radius: 10px;
+    color: #fff;
+    line-height: 34px;
+    cursor: pointer;
+}
+
+
+
+
