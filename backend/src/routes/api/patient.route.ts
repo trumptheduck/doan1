@@ -9,8 +9,9 @@ class PatientRoute {
 
   initializeRoutes() {
     const _patientController = new PatientController(); 
-    this.router.get('/', _patientController.getPatient);
-    this.router.post('/', _patientController.postPatient);
+    this.router.get('/', _patientController.getPatients);
+    this.router.get('/:id', _patientController.getPatientById);
+    this.router.post('/', _patientController.createPatient);
     this.router.patch('/', _patientController.editPatient);
     this.router.delete('/:id', _patientController.deletePatient);
     this.router.get('/doctor/:id', _patientController.getPatientByDoctorId);

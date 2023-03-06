@@ -2,8 +2,6 @@ import * as mongoose from 'mongoose';
 import * as uniqueValidator from 'mongoose-unique-validator'
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
-const accessTokenKey = '6Jh(r-aux8q63Cb2+?~qM]Y9aQ:>Tpsk';
-console.log(accessTokenKey)
 
 const userSchema = new mongoose.Schema(
     {
@@ -19,6 +17,8 @@ const userSchema = new mongoose.Schema(
 
 userSchema.plugin(uniqueValidator);
 userSchema.methods.generateJWT = function () {
+    const accessTokenKey = process.env.JWT_KEY;
+    console.log(accessTokenKey)
     return jwt.sign(
         {
             email: this.email,
@@ -28,12 +28,11 @@ userSchema.methods.generateJWT = function () {
     );
 };
 userSchema.methods.generatePassword = function (password) {
-    this.password = bcrypt.hashSync(password, 10);
+    this.password = bcrypt.hashSync(password.toString(), 10);
   };
 
 userSchema.methods.checkValidPassword = function (password) {
-    // return bcrypt.compareSync(password, this.password);
-    return password === this.password
+    return bcrypt.compareSync(password.toString(), this.password);
 }
 const User = mongoose.model('User', userSchema)
 export default User;

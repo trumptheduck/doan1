@@ -1,25 +1,27 @@
 import { Request, Response } from 'express';
-// const Product = require('../config')
+// const Patient = require('../config')
 import Patient from '../models/patient.model'
 
 class PatientController {
-  getAllPatients = async (req: Request, res: Response) => {
+  getPatients = async (req: Request, res: Response) => {
     try {
-      res.status(200).json({ msg: 'all patients' });
-    } catch (error) {
-      res.status(500).json(error);
-    }
-  };
-
-  getPatient = async (req: Request, res: Response) => {
-    try {
-      let patients = await Patient.find();
-      return res.status(200).json(patients);
+        let patients = await Patient.find();
+        return res.status(200).json(patients);
     } catch (error) {
       res.status(500).json({message: "error"})
       console.log(error)
     }
   };
+
+  getPatientById = async (req, res) => {
+    try {
+        let patients = await Patient.findById(req.params.id);
+        return res.status(200).json(patients);
+    } catch (error) {
+      res.status(500).json({message: "error"})
+      console.log(error)
+    }
+  }
 
   getPatientByDoctorId = async (req: Request, res: Response) => {
     try {
@@ -32,19 +34,23 @@ class PatientController {
     }
   }
 
-  postPatient = async (req: Request, res: Response) => {
+  createPatient = async (req: Request, res: Response) => {
     try {
-      const _product = new Patient({
-        id : req.body.id,
-        name: req.body.name,
-        description: req.body.description,
-        status: req.body.status,
-        link: req.body.link,
-        image: req.body.image,
+      const _patient = new Patient({
+        id: req.body.id,
+        doctor: req.body.doctor,
+        firstName: req.body.firstName,
+        middleName: req.body.middleName,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        birthday: new Date(req.body.birthday),
+        address: req.body.address,
+        phone: req.body.phone,
+        identification: req.body.identification,
       })
-      const newProduct = await _product.save()
-      console.log("Create new Post:", newProduct._id)
-      return res.status(200).json(newProduct)
+      const newPatient = await _patient.save()
+      console.log("Create new Post:", newPatient._id)
+      return res.status(200).json(newPatient)
     } catch (err) {
       console.log(err)
       res.status(500).json({message: "error"})
@@ -55,9 +61,9 @@ class PatientController {
     try {
       const body = req.body
       await Patient.findByIdAndUpdate(body._id, body)
-      const updatedProduct = await Patient.findById(body._id)
-      console.log("UpdateProduct: ", body._id)
-      return res.status(200).json(updatedProduct)
+      const updatedPatient = await Patient.findById(body._id)
+      console.log("UpdatePatient: ", body._id)
+      return res.status(200).json(updatedPatient)
     } catch (err) {
       console.log(err)
       res.status(500).json({message: "error"})
@@ -67,9 +73,9 @@ class PatientController {
   deletePatient = async (req: Request, res: Response) => {
     try {
       const id = req.params.id
-      const deleteProduct = await Patient.findByIdAndDelete(id)
-      console.log("Deleted Product: ", id)
-      return res.status(200).json(deleteProduct)
+      const deletePatient = await Patient.findByIdAndDelete(id)
+      console.log("Deleted Patient: ", id)
+      return res.status(200).json(deletePatient)
     } catch (err) {
       console.log(err)
       res.status(500).json({message: "error"})

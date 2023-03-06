@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import userController from '../../controllers/user.controllers';
+import UserController from '../../controllers/user.controllers';
 // const userController = require("../../controllers/user.controllers");
 // const { verifyUser } = require('../../middlewares/verify');
 class UserRoute {
@@ -9,10 +9,10 @@ class UserRoute {
         this.initializeRoutes();
       }
     initializeRoutes() {
-        const _userController = new userController()
+        const _userController = new UserController()
         this.router.post('/auth/login', _userController.login);
-        // this.router.post('/auth/autologin', _userController.autoLogin);
-        // this.router.post('/auth/register', _userController.signup);
+        this.router.post('/auth/autologin', _userController.autologin);
+        this.router.post('/auth/register', _userController.signup);
     }
 }
 
